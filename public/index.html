@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Node + Android</title>
+	<script type="text/javascript" src = "/socket.io/socket.io.js"></script>
+	
+</head>
+<body>
+	<h1>Hola Socket</h1>
+	<textarea name = "texto" id = "texto"></textarea>
+	<button id = "boton" onclick = "enviar();">Enviar</button>
+	<br><br>
+	<ul id = "lista">
+		
+	</ul>
+	<script type="text/javascript">
+		var socket = io();
+		socket.on('message', (data) => {
+			console.log(data);
+			let li = document.createElement('li');
+			li.innerHTML = data['message'];
+			let ul = document.getElementById('lista');
+			ul.appendChild(li);
+		});
+		function enviar(){
+			let mensaje = document.getElementById('texto');
+			let message = mensaje.value;
+			//alert(message);
+			socket.emit("message", message);
+		}
+	</script>
+
+
+</body>
+</html>
